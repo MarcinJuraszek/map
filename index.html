@@ -15,6 +15,27 @@
   <body>
     <div id="map"></div>
 
+    <div id="photo-modal" class="photo-modal" hidden>
+      <div class="photo-modal__overlay" data-photo-modal-close></div>
+      <div
+        class="photo-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="photo-modal-title"
+      >
+        <button
+          type="button"
+          class="photo-modal__close"
+          aria-label="Close photo gallery"
+          data-photo-modal-close
+        >
+          &times;
+        </button>
+        <h2 id="photo-modal-title" class="photo-modal__title"></h2>
+        <div class="photo-modal__body"></div>
+      </div>
+    </div>
+
     <script
       src="https://unpkg.com/maplibre-gl@3.5.2/dist/maplibre-gl.js"
       crossorigin="anonymous"

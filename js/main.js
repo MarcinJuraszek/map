@@ -1,3 +1,30 @@
+const placeMediaById = new Map();
+const pathMediaById = new Map();
+
+function normalizePhotos(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .map((entry) => {
+      if (!entry || typeof entry.src !== "string") {
+        return null;
+      }
+
+      const caption =
+        typeof entry.caption === "string" && entry.caption.trim().length > 0
+          ? entry.caption.trim()
+          : null;
+
+      return {
+        src: entry.src,
+        caption,
+      };
+    })
+    .filter(Boolean);
+}
+
 const map = new maplibregl.Map({
   container: "map",
   style: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
@@ -10,6 +37,320 @@ map.addControl(
   new maplibregl.NavigationControl({ visualizePitch: true }),
   "top-left"
 );
+
+const photoModal = (() => {
+  const modal = document.getElementById("photo-modal");
+  if (!modal) {
+    return { open: () => {}, close: () => {} };
+  }
+
+  const overlay = modal.querySelector(".photo-modal__overlay");
+  const dialog = modal.querySelector(".photo-modal__dialog");
+  const closeButton = modal.querySelector(".photo-modal__close");
+  const titleElement = modal.querySelector(".photo-modal__title");
+  const bodyElement = modal.querySelector(".photo-modal__body");
+  const focusableSelector =
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  let previousActiveElement = null;
+  let currentPhotos = [];
+  let currentIndex = 0;
+  let thumbnailButtons = [];
+  let structureInitialized = false;
+
+  let viewer = null;
+  let viewerImage = null;
+  let viewerCaption = null;
+  let prevButton = null;
+  let nextButton = null;
+  let thumbnailsContainer = null;
+
+  function getFocusableElements() {
+    if (!dialog) {
+      return [];
+    }
+    return Array.from(dialog.querySelectorAll(focusableSelector));
+  }
+
+  function ensureStructure() {
+    if (!bodyElement || structureInitialized) {
+      return;
+    }
+
+    bodyElement.innerHTML = "";
+
+    viewer = document.createElement("div");
+    viewer.className = "photo-modal__viewer";
+
+    prevButton = document.createElement("button");
+    prevButton.type = "button";
+    prevButton.className = "photo-modal__nav-button";
+    prevButton.setAttribute("aria-label", "Show previous photo");
+    prevButton.textContent = "<";
+
+    const viewerFrame = document.createElement("div");
+    viewerFrame.className = "photo-modal__viewer-frame";
+
+    viewerImage = document.createElement("img");
+    viewerImage.className = "photo-modal__viewer-media";
+    viewerImage.alt = "";
+    viewerImage.decoding = "async";
+    viewerImage.loading = "eager";
+    viewerFrame.appendChild(viewerImage);
+
+    nextButton = document.createElement("button");
+    nextButton.type = "button";
+    nextButton.className = "photo-modal__nav-button";
+    nextButton.setAttribute("aria-label", "Show next photo");
+    nextButton.textContent = ">";
+
+    viewer.append(prevButton, viewerFrame, nextButton);
+
+    viewerCaption = document.createElement("p");
+    viewerCaption.className = "photo-modal__viewer-caption";
+
+    thumbnailsContainer = document.createElement("div");
+    thumbnailsContainer.className = "photo-modal__thumbnails";
+
+    bodyElement.append(viewer, viewerCaption, thumbnailsContainer);
+
+    prevButton.addEventListener("click", showPrev);
+    nextButton.addEventListener("click", showNext);
+
+    structureInitialized = true;
+  }
+
+  function updateNavState() {
+    const disabled = currentPhotos.length <= 1;
+    if (prevButton) {
+      prevButton.disabled = disabled;
+    }
+    if (nextButton) {
+      nextButton.disabled = disabled;
+    }
+  }
+
+  function updateThumbnails() {
+    if (!thumbnailButtons || thumbnailButtons.length === 0) {
+      return;
+    }
+
+    thumbnailButtons.forEach((button, index) => {
+      if (!button) {
+        return;
+      }
+      if (index === currentIndex) {
+        button.classList.add("is-active");
+        button.setAttribute("aria-current", "true");
+        if (thumbnailsContainer && !thumbnailsContainer.hidden) {
+          button.scrollIntoView({ block: "nearest", inline: "center" });
+        }
+      } else {
+        button.classList.remove("is-active");
+        button.removeAttribute("aria-current");
+      }
+    });
+  }
+
+  function updateViewer() {
+    if (!viewerImage || currentPhotos.length === 0) {
+      return;
+    }
+
+    const photo = currentPhotos[currentIndex];
+    const fallbackCaption = `Photo ${currentIndex + 1}`;
+    const caption = photo.caption || fallbackCaption;
+
+    viewerImage.src = photo.src;
+    viewerImage.alt = caption;
+
+    if (viewerCaption) {
+      viewerCaption.textContent = caption;
+    }
+
+    updateNavState();
+    updateThumbnails();
+  }
+
+  function setCurrentIndex(index) {
+    if (currentPhotos.length === 0) {
+      return;
+    }
+    const total = currentPhotos.length;
+    currentIndex = ((index % total) + total) % total;
+    updateViewer();
+  }
+
+  function showPrev() {
+    if (currentPhotos.length <= 1) {
+      return;
+    }
+    setCurrentIndex(currentIndex - 1);
+  }
+
+  function showNext() {
+    if (currentPhotos.length <= 1) {
+      return;
+    }
+    setCurrentIndex(currentIndex + 1);
+  }
+
+  function buildThumbnails() {
+    if (!thumbnailsContainer) {
+      return;
+    }
+
+    thumbnailsContainer.innerHTML = "";
+    thumbnailButtons = [];
+
+    if (currentPhotos.length <= 1) {
+      thumbnailsContainer.hidden = true;
+      return;
+    }
+
+    thumbnailsContainer.hidden = false;
+
+    thumbnailButtons = currentPhotos.map((photo, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "photo-modal__thumbnail-button";
+      button.setAttribute(
+        "aria-label",
+        photo.caption ? `View ${photo.caption}` : `View photo ${index + 1}`
+      );
+      button.dataset.index = String(index);
+
+      const thumb = document.createElement("img");
+      thumb.src = photo.src;
+      thumb.alt = "";
+      thumb.loading = "lazy";
+      thumb.decoding = "async";
+      thumb.className = "photo-modal__thumbnail-image";
+      button.appendChild(thumb);
+
+      button.addEventListener("click", () => {
+        setCurrentIndex(index);
+      });
+
+      thumbnailsContainer.appendChild(button);
+      return button;
+    });
+  }
+
+  function renderPhotos(title, photos) {
+    if (!titleElement || !bodyElement) {
+      return;
+    }
+
+    ensureStructure();
+
+    titleElement.textContent = title;
+    currentPhotos = photos;
+    currentIndex = 0;
+
+    buildThumbnails();
+
+    if (currentPhotos.length === 0) {
+      return;
+    }
+
+    updateNavState();
+    setCurrentIndex(0);
+  }
+
+  function close() {
+    modal.hidden = true;
+    document.body.classList.remove("modal-open");
+    document.removeEventListener("keydown", handleKeydown, true);
+
+    if (
+      previousActiveElement &&
+      typeof previousActiveElement.focus === "function"
+    ) {
+      previousActiveElement.focus();
+    }
+    previousActiveElement = null;
+  }
+
+  function handleKeydown(event) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      close();
+      return;
+    }
+
+    if (event.key === "ArrowLeft") {
+      if (currentPhotos.length > 1) {
+        event.preventDefault();
+        showPrev();
+      }
+      return;
+    }
+
+    if (event.key === "ArrowRight") {
+      if (currentPhotos.length > 1) {
+        event.preventDefault();
+        showNext();
+      }
+      return;
+    }
+
+    if (event.key !== "Tab") {
+      return;
+    }
+
+    const focusableElements = getFocusableElements();
+    if (focusableElements.length === 0) {
+      event.preventDefault();
+      return;
+    }
+
+    const first = focusableElements[0];
+    const last = focusableElements[focusableElements.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  function open(title, photos) {
+    if (!Array.isArray(photos) || photos.length === 0) {
+      return;
+    }
+
+    previousActiveElement = document.activeElement;
+    renderPhotos(title, photos);
+
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+    document.addEventListener("keydown", handleKeydown, true);
+
+    if (closeButton) {
+      window.requestAnimationFrame(() => {
+        closeButton.focus();
+      });
+    }
+  }
+
+  if (overlay) {
+    overlay.addEventListener("click", close);
+  }
+
+  if (closeButton) {
+    closeButton.addEventListener("click", close);
+  }
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      close();
+    }
+  });
+
+  return { open, close };
+})();
 
 let activeYear = null;
 
@@ -129,25 +470,38 @@ async function loadPlaces() {
     }
     const rawPlaces = await response.json();
 
+    placeMediaById.clear();
+
     const geojson = {
       type: "FeatureCollection",
-      features: rawPlaces.map((place) => ({
-        type: "Feature",
-        id: place.id,
-        geometry: {
-          type: "Point",
-          coordinates: [place.lon, place.lat],
-        },
-        properties: {
-          name: place.name,
-          visitedOn: place.visitedOn ?? null,
-          notes: place.notes ?? null,
-          country: place.country ?? null,
-          flag: countryCodeToFlagEmoji(place.country ?? null),
-          type: place.type ?? null,
-          year: place.visitedOn ? String(place.visitedOn).slice(0, 4) : null,
-        },
-      })),
+      features: rawPlaces.map((place) => {
+        const photos = normalizePhotos(place.photos);
+        const photosKey = typeof place.id === "string" ? place.id : null;
+
+        if (photosKey && photos.length > 0) {
+          placeMediaById.set(photosKey, photos);
+        }
+
+        return {
+          type: "Feature",
+          id: place.id,
+          geometry: {
+            type: "Point",
+            coordinates: [place.lon, place.lat],
+          },
+          properties: {
+            name: place.name,
+            visitedOn: place.visitedOn ?? null,
+            notes: place.notes ?? null,
+            country: place.country ?? null,
+            flag: countryCodeToFlagEmoji(place.country ?? null),
+            type: place.type ?? null,
+            year: place.visitedOn ? String(place.visitedOn).slice(0, 4) : null,
+            hasPhotos: photos.length > 0,
+            photosKey,
+          },
+        };
+      }),
     };
 
     map.addSource("places", {
@@ -220,11 +574,14 @@ async function loadPlaces() {
     });
 
     map.on("mouseenter", "places-dots", (event) => {
-      map.getCanvas().style.cursor = "pointer";
       const feature = event.features?.[0];
       if (!feature) {
         return;
       }
+
+      map.getCanvas().style.cursor = feature.properties?.hasPhotos
+        ? "pointer"
+        : "";
 
       const { name, flag } = feature.properties;
       const label = flag ? `${flag} ${name}` : name;
@@ -265,6 +622,8 @@ async function loadPaths() {
       return;
     }
 
+    pathMediaById.clear();
+
     const features = (
       await Promise.all(
         manifest.map(async (fileName) => {
@@ -287,9 +646,15 @@ async function loadPaths() {
               return [lon, lat];
             });
 
+            const pathId = path.id ?? fileName;
+            const photos = normalizePhotos(path.photos);
+            if (pathId && photos.length > 0) {
+              pathMediaById.set(pathId, photos);
+            }
+
             return {
               type: "Feature",
-              id: path.id ?? fileName,
+              id: pathId,
               geometry: {
                 type: "LineString",
                 coordinates,
@@ -297,6 +662,8 @@ async function loadPaths() {
               properties: {
                 name: path.name ?? path.id ?? fileName,
                 type: path.type ?? "route",
+                hasPhotos: photos.length > 0,
+                photosKey: pathId,
               },
             };
           } catch (error) {
@@ -378,7 +745,9 @@ async function loadPaths() {
         return;
       }
 
-      map.getCanvas().style.cursor = "pointer";
+      map.getCanvas().style.cursor = feature.properties?.hasPhotos
+        ? "pointer"
+        : "";
       pathPopup.setLngLat(event.lngLat).setText(name).addTo(map);
     });
 
@@ -391,7 +760,41 @@ async function loadPaths() {
   }
 }
 
+function handlePlaceClick(event) {
+  const feature = event.features?.[0];
+  if (!feature) {
+    return;
+  }
+
+  const key = feature.properties?.photosKey ?? feature.id;
+  const photos = key ? placeMediaById.get(key) : null;
+  if (!photos || photos.length === 0) {
+    return;
+  }
+
+  const title = feature.properties?.name ?? "Photo gallery";
+  photoModal.open(title, photos);
+}
+
+function handlePathClick(event) {
+  const feature = event.features?.[0];
+  if (!feature) {
+    return;
+  }
+
+  const key = feature.properties?.photosKey ?? feature.id;
+  const photos = key ? pathMediaById.get(key) : null;
+  if (!photos || photos.length === 0) {
+    return;
+  }
+
+  const title = feature.properties?.name ?? "Photo gallery";
+  photoModal.open(title, photos);
+}
+
 map.on("load", () => {
   loadPlaces();
   loadPaths();
+  map.on("click", "places-dots", handlePlaceClick);
+  map.on("click", "paths-lines", handlePathClick);
 });
