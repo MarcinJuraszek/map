@@ -1,0 +1,688 @@
+[
+  {
+    "id": "seattle-usa",
+    "name": "Seattle, USA",
+    "lat": 47.6062,
+    "lon": -122.3321,
+    "country": "US",
+    "type": "home"
+  },
+  {
+    "id": "radzionkow-pl",
+    "name": "Radzionków, Poland",
+    "lat": 50.4001,
+    "lon": 18.9019,
+    "country": "PL",
+    "type": "home"
+  },
+  {
+    "id": "new-york-usa",
+    "name": "New York City, USA",
+    "lat": 40.7128,
+    "lon": -74.006,
+    "country": "US"
+  },
+  {
+    "id": "anchorage-usa",
+    "name": "Anchorage, USA",
+    "lat": 61.2181,
+    "lon": -149.9003,
+    "country": "US"
+  },
+  {
+    "id": "seward-usa",
+    "name": "Seward, USA",
+    "lat": 60.1042,
+    "lon": -149.4422,
+    "country": "US"
+  },
+  {
+    "id": "los-angeles-usa",
+    "name": "Los Angeles, USA",
+    "lat": 34.0522,
+    "lon": -118.2437,
+    "country": "US"
+  },
+  {
+    "id": "san-francisco-usa",
+    "name": "San Francisco, USA",
+    "lat": 37.7749,
+    "lon": -122.4194,
+    "country": "US"
+  },
+  {
+    "id": "salt-lake-city-usa",
+    "name": "Salt Lake City, USA",
+    "lat": 40.7608,
+    "lon": -111.891,
+    "country": "US"
+  },
+  {
+    "id": "las-vegas-usa",
+    "name": "Las Vegas, USA",
+    "lat": 36.1699,
+    "lon": -115.1398,
+    "country": "US"
+  },
+  {
+    "id": "zion-us",
+    "name": "Zion National Park, USA",
+    "lat": 37.2982,
+    "lon": -113.0263,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "kenai-fjords-us",
+    "name": "Kenai Fjords National Park (Exit Glacier), USA",
+    "lat": 60.1819,
+    "lon": -149.6503,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "portland-usa",
+    "name": "Portland, USA",
+    "lat": 45.5152,
+    "lon": -122.6784,
+    "country": "US"
+  },
+  {
+    "id": "washington-dc-usa",
+    "name": "Washington, DC, USA",
+    "lat": 38.9072,
+    "lon": -77.0369,
+    "country": "US"
+  },
+  {
+    "id": "boston-usa",
+    "name": "Boston, USA",
+    "lat": 42.3601,
+    "lon": -71.0589,
+    "country": "US"
+  },
+  {
+    "id": "miami-usa",
+    "name": "Miami, USA",
+    "lat": 25.7617,
+    "lon": -80.1918,
+    "country": "US"
+  },
+  {
+    "id": "orlando-usa",
+    "name": "Orlando, USA",
+    "lat": 28.5383,
+    "lon": -81.3792,
+    "country": "US"
+  },
+  {
+    "id": "new-orleans-usa",
+    "name": "New Orleans, USA",
+    "lat": 29.9511,
+    "lon": -90.0715,
+    "country": "US"
+  },
+  {
+    "id": "austin-usa",
+    "name": "Austin, USA",
+    "lat": 30.2672,
+    "lon": -97.7431,
+    "country": "US"
+  },
+  {
+    "id": "chicago-usa",
+    "name": "Chicago, USA",
+    "lat": 41.8781,
+    "lon": -87.6298,
+    "country": "US"
+  },
+  {
+    "id": "detroit-usa",
+    "name": "Detroit, USA",
+    "lat": 42.3314,
+    "lon": -83.0458,
+    "country": "US"
+  },
+  {
+    "id": "denver-usa",
+    "name": "Denver, USA",
+    "lat": 39.7392,
+    "lon": -104.9903,
+    "country": "US"
+  },
+  {
+    "id": "san-diego-usa",
+    "name": "San Diego, USA",
+    "lat": 32.7157,
+    "lon": -117.1611,
+    "country": "US"
+  },
+  {
+    "id": "nashville-usa",
+    "name": "Nashville, USA",
+    "lat": 36.1627,
+    "lon": -86.7816,
+    "country": "US"
+  },
+  {
+    "id": "philadelphia-usa",
+    "name": "Philadelphia, USA",
+    "lat": 39.9526,
+    "lon": -75.1652,
+    "country": "US"
+  },
+  {
+    "id": "rapid-city-usa",
+    "name": "Rapid City, USA",
+    "lat": 44.0805,
+    "lon": -103.231,
+    "country": "US"
+  },
+  {
+    "id": "page-usa",
+    "name": "Page, USA",
+    "lat": 36.9147,
+    "lon": -111.4558,
+    "country": "US"
+  },
+  {
+    "id": "cape-canaveral-usa",
+    "name": "Cape Canaveral, USA",
+    "lat": 28.3922,
+    "lon": -80.6077,
+    "country": "US"
+  },
+  {
+    "id": "mexico-city-mx",
+    "name": "Mexico City, Mexico",
+    "lat": 19.4326,
+    "lon": -99.1332,
+    "country": "MX"
+  },
+  {
+    "id": "san-jose-cr",
+    "name": "San José, Costa Rica",
+    "lat": 9.9281,
+    "lon": -84.0907,
+    "country": "CR"
+  },
+  {
+    "id": "santiago-cl",
+    "name": "Santiago, Chile",
+    "lat": -33.4489,
+    "lon": -70.6693,
+    "country": "CL"
+  },
+  {
+    "id": "quito-ec",
+    "name": "Quito, Ecuador",
+    "lat": -0.1807,
+    "lon": -78.4678,
+    "country": "EC"
+  },
+  {
+    "id": "sydney-au",
+    "name": "Sydney, Australia",
+    "lat": -33.8688,
+    "lon": 151.2093,
+    "country": "AU"
+  },
+  {
+    "id": "brisbane-au",
+    "name": "Brisbane, Australia",
+    "lat": -27.4698,
+    "lon": 153.0251,
+    "country": "AU"
+  },
+  {
+    "id": "cairns-au",
+    "name": "Cairns, Australia",
+    "lat": -16.9186,
+    "lon": 145.7781,
+    "country": "AU"
+  },
+  {
+    "id": "delhi-in",
+    "name": "Delhi, India",
+    "lat": 28.6139,
+    "lon": 77.209,
+    "country": "IN"
+  },
+  {
+    "id": "mumbai-in",
+    "name": "Mumbai, India",
+    "lat": 19.076,
+    "lon": 72.8777,
+    "country": "IN"
+  },
+  {
+    "id": "jaipur-in",
+    "name": "Jaipur, India",
+    "lat": 26.9124,
+    "lon": 75.7873,
+    "country": "IN"
+  },
+  {
+    "id": "agra-in",
+    "name": "Agra, India",
+    "lat": 27.1767,
+    "lon": 78.0081,
+    "country": "IN"
+  },
+  {
+    "id": "colombo-lk",
+    "name": "Colombo, Sri Lanka",
+    "lat": 6.9271,
+    "lon": 79.8612,
+    "country": "LK"
+  },
+  {
+    "id": "kazemba-zm",
+    "name": "Kazemba, Zambia",
+    "lat": -9.8167,
+    "lon": 28.75,
+    "country": "ZM"
+  },
+  {
+    "id": "taipei-tw",
+    "name": "Taipei, Taiwan",
+    "lat": 25.033,
+    "lon": 121.5654,
+    "country": "TW"
+  },
+  {
+    "id": "bangkok-th",
+    "name": "Bangkok, Thailand",
+    "lat": 13.7563,
+    "lon": 100.5018,
+    "country": "TH"
+  },
+  {
+    "id": "siem-reap-kh",
+    "name": "Siem Reap, Cambodia",
+    "lat": 13.3671,
+    "lon": 103.8448,
+    "country": "KH"
+  },
+  {
+    "id": "ho-chi-minh-vn",
+    "name": "Ho Chi Minh City, Vietnam",
+    "lat": 10.8231,
+    "lon": 106.6297,
+    "country": "VN"
+  },
+  {
+    "id": "da-nang-vn",
+    "name": "Da Nang, Vietnam",
+    "lat": 16.0678,
+    "lon": 108.2208,
+    "country": "VN"
+  },
+  {
+    "id": "singapore-sg",
+    "name": "Singapore",
+    "lat": 1.3521,
+    "lon": 103.8198,
+    "country": "SG"
+  },
+  {
+    "id": "tel-aviv-il",
+    "name": "Tel Aviv, Israel",
+    "lat": 32.0853,
+    "lon": 34.7818,
+    "country": "IL"
+  },
+  {
+    "id": "lusaka-zm",
+    "name": "Lusaka, Zambia",
+    "lat": -15.3875,
+    "lon": 28.3228,
+    "country": "ZM"
+  },
+  {
+    "id": "livingstone-zm",
+    "name": "Livingstone, Zambia",
+    "lat": -17.8574,
+    "lon": 25.8572,
+    "country": "ZM"
+  },
+  {
+    "id": "auckland-nz",
+    "name": "Auckland, New Zealand",
+    "lat": -36.8485,
+    "lon": 174.7633,
+    "country": "NZ"
+  },
+  {
+    "id": "likan-pg",
+    "name": "Likan, Papua New Guinea",
+    "lat": -4.728389,
+    "lon": 144.152972,
+    "country": "PG"
+  },
+  {
+    "id": "vancouver-ca",
+    "name": "Vancouver, Canada",
+    "lat": 49.2827,
+    "lon": -123.1207,
+    "country": "CA"
+  },
+  {
+    "id": "whistler-ca",
+    "name": "Whistler, Canada",
+    "lat": 50.1163,
+    "lon": -122.9574,
+    "country": "CA"
+  },
+  {
+    "id": "grand-teton-us",
+    "name": "Grand Teton National Park, USA",
+    "lat": 43.7904,
+    "lon": -110.6818,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "yellowstone-us",
+    "name": "Yellowstone National Park, USA",
+    "lat": 44.428,
+    "lon": -110.5885,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "oslo-no",
+    "name": "Oslo, Norway",
+    "lat": 59.9139,
+    "lon": 10.7522,
+    "country": "NO"
+  },
+  {
+    "id": "trondheim-no",
+    "name": "Trondheim, Norway",
+    "lat": 63.4305,
+    "lon": 10.3951,
+    "country": "NO"
+  },
+  {
+    "id": "stavanger-no",
+    "name": "Stavanger, Norway",
+    "lat": 58.9699,
+    "lon": 5.7331,
+    "country": "NO"
+  },
+  {
+    "id": "stockholm-se",
+    "name": "Stockholm, Sweden",
+    "lat": 59.3293,
+    "lon": 18.0686,
+    "country": "SE"
+  },
+  {
+    "id": "copenhagen-dk",
+    "name": "Copenhagen, Denmark",
+    "lat": 55.6761,
+    "lon": 12.5683,
+    "country": "DK"
+  },
+  {
+    "id": "amsterdam-nl",
+    "name": "Amsterdam, Netherlands",
+    "lat": 52.3676,
+    "lon": 4.9041,
+    "country": "NL"
+  },
+  {
+    "id": "brussels-be",
+    "name": "Brussels, Belgium",
+    "lat": 50.8503,
+    "lon": 4.3517,
+    "country": "BE"
+  },
+  {
+    "id": "antwerp-be",
+    "name": "Antwerp, Belgium",
+    "lat": 51.2194,
+    "lon": 4.4025,
+    "country": "BE"
+  },
+  {
+    "id": "dortmund-de",
+    "name": "Dortmund, Germany",
+    "lat": 51.5136,
+    "lon": 7.4653,
+    "country": "DE"
+  },
+  {
+    "id": "wroclaw-pl",
+    "name": "Wrocław, Poland",
+    "lat": 51.1079,
+    "lon": 17.0385,
+    "country": "PL"
+  },
+  {
+    "id": "warsaw-pl",
+    "name": "Warsaw, Poland",
+    "lat": 52.2297,
+    "lon": 21.0122,
+    "country": "PL"
+  },
+  {
+    "id": "gdansk-pl",
+    "name": "Gdańsk, Poland",
+    "lat": 54.352,
+    "lon": 18.6466,
+    "country": "PL"
+  },
+  {
+    "id": "krakow-pl",
+    "name": "Kraków, Poland",
+    "lat": 50.0647,
+    "lon": 19.945,
+    "country": "PL"
+  },
+  {
+    "id": "milan-it",
+    "name": "Milan, Italy",
+    "lat": 45.4642,
+    "lon": 9.19,
+    "country": "IT"
+  },
+  {
+    "id": "rome-it",
+    "name": "Rome, Italy",
+    "lat": 41.9028,
+    "lon": 12.4964,
+    "country": "IT"
+  },
+  {
+    "id": "barcelona-es",
+    "name": "Barcelona, Spain",
+    "lat": 41.3851,
+    "lon": 2.1734,
+    "country": "ES"
+  },
+  {
+    "id": "geneva-ch",
+    "name": "Geneva, Switzerland",
+    "lat": 46.2044,
+    "lon": 6.1432,
+    "country": "CH"
+  },
+  {
+    "id": "prague-cz",
+    "name": "Prague, Czech Republic",
+    "lat": 50.0755,
+    "lon": 14.4378,
+    "country": "CZ"
+  },
+  {
+    "id": "vienna-at",
+    "name": "Vienna, Austria",
+    "lat": 48.2082,
+    "lon": 16.3738,
+    "country": "AT"
+  },
+  {
+    "id": "bratislava-sk",
+    "name": "Bratislava, Slovakia",
+    "lat": 48.1486,
+    "lon": 17.1077,
+    "country": "SK"
+  },
+  {
+    "id": "dublin-ie",
+    "name": "Dublin, Ireland",
+    "lat": 53.3498,
+    "lon": -6.2603,
+    "country": "IE"
+  },
+  {
+    "id": "london-uk",
+    "name": "London, United Kingdom",
+    "lat": 51.5074,
+    "lon": -0.1278,
+    "country": "GB"
+  },
+  {
+    "id": "reykjavik-is",
+    "name": "Reykjavík, Iceland",
+    "lat": 64.1466,
+    "lon": -21.9426,
+    "country": "IS"
+  },
+  {
+    "id": "paris-fr",
+    "name": "Paris, France",
+    "lat": 48.8566,
+    "lon": 2.3522,
+    "country": "FR"
+  },
+  {
+    "id": "lisbon-pt",
+    "name": "Lisbon, Portugal",
+    "lat": 38.7223,
+    "lon": -9.1393,
+    "country": "PT"
+  },
+  {
+    "id": "grand-canyon-us",
+    "name": "Grand Canyon National Park, USA",
+    "lat": 36.1069,
+    "lon": -112.1129,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "mount-rainier-us",
+    "name": "Mount Rainier National Park, USA",
+    "lat": 46.879967,
+    "lon": -121.726906,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "olympic-us",
+    "name": "Olympic National Park, USA",
+    "lat": 47.8021,
+    "lon": -123.6044,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "north-cascades-us",
+    "name": "North Cascades National Park, USA",
+    "lat": 48.7718,
+    "lon": -121.2985,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "joshua-tree-us",
+    "name": "Joshua Tree National Park, USA",
+    "lat": 33.8734,
+    "lon": -115.901,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "pinnacles-us",
+    "name": "Pinnacles National Park, USA",
+    "lat": 36.4906,
+    "lon": -121.1825,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "redwood-us",
+    "name": "Redwood National and State Parks, USA",
+    "lat": 41.2132,
+    "lon": -124.0046,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "crater-lake-us",
+    "name": "Crater Lake National Park, USA",
+    "lat": 42.9446,
+    "lon": -122.109,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "arches-us",
+    "name": "Arches National Park, USA",
+    "lat": 38.7331,
+    "lon": -109.5925,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "canyonlands-us",
+    "name": "Canyonlands National Park, USA",
+    "lat": 38.3269,
+    "lon": -109.8783,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "bryce-canyon-us",
+    "name": "Bryce Canyon National Park, USA",
+    "lat": 37.593,
+    "lon": -112.1871,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "death-valley-us",
+    "name": "Death Valley National Park, USA",
+    "lat": 36.5323,
+    "lon": -116.9325,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "wind-cave-us",
+    "name": "Wind Cave National Park, USA",
+    "lat": 43.6045,
+    "lon": -103.421,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "badlands-us",
+    "name": "Badlands National Park, USA",
+    "lat": 43.8554,
+    "lon": -102.3397,
+    "country": "US",
+    "type": "national-park"
+  },
+  {
+    "id": "shenandoah-us",
+    "name": "Shenandoah National Park, USA",
+    "lat": 38.53,
+    "lon": -78.35,
+    "country": "US",
+    "type": "national-park"
+  }
+]
