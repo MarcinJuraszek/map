@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List
+from typing import Dict, List
 import argparse
 import json
 import itertools
@@ -21,6 +21,11 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="Optional path to the manifest file. Defaults to <output-dir>/index.json.",
     )
+    parser.add_argument(
+        "--default-name",
+        type=str,
+        help="Name to use when a feature does not provide one in properties.",
+    )
     return parser.parse_args()
 
 
@@ -37,6 +42,7 @@ def main() -> None:
         geo = json.load(fh)
 
     manifest: List[str] = []
+    slug_counts: Dict[str, int] = {}
     for idx, feature in enumerate(geo.get("features", []), start=1):
         geom = feature.get("geometry", {})
         coords = geom.get("coordinates")
@@ -47,8 +53,12 @@ def main() -> None:
         else:
             continue
 
-        name = feature.get("properties", {}).get("name", f"Path {idx}")
-        slug = name.lower().replace(" ", "-") or f"path-{idx}"
+        properties = feature.get("properties", {}) or {}
+        name = properties.get("name") or args.default_name or f"Path {idx}"
+        slug_base = name.lower().replace(" ", "-") or f"path-{idx}"
+        count = slug_counts.get(slug_base, 0)
+        slug_counts[slug_base] = count + 1
+        slug = slug_base if count == 0 else f"{slug_base}-{count + 1}"
         filename = f"{slug}.json"
 
         points = [[lat, lon] for lon, lat, *_ in track]
