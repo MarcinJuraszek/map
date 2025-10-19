@@ -351,6 +351,35 @@ async function loadPaths() {
         "line-opacity": 0.75,
       },
     });
+
+    if (map.getLayer("places-dots")) {
+      map.moveLayer("places-dots");
+    }
+
+    const pathPopup = new maplibregl.Popup({
+      closeButton: false,
+      closeOnMove: true,
+    });
+
+    map.on("mousemove", "paths-lines", (event) => {
+      const feature = event.features?.[0];
+      if (!feature) {
+        return;
+      }
+
+      const { name } = feature.properties ?? {};
+      if (!name) {
+        return;
+      }
+
+      map.getCanvas().style.cursor = "pointer";
+      pathPopup.setLngLat(event.lngLat).setText(name).addTo(map);
+    });
+
+    map.on("mouseleave", "paths-lines", () => {
+      map.getCanvas().style.cursor = "";
+      pathPopup.remove();
+    });
   } catch (error) {
     console.error(error);
   }
